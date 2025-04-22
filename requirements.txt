@@ -1,0 +1,7 @@
+streamlit
+    langchain-community
+    pandas
+    openai
+    psycopg2-binary # Assuming PostgreSQL, change if using a different DB
+    sqlalchemy
+    langchain-openai 

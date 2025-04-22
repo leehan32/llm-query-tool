@@ -1,15 +1,38 @@
 from langchain_core.prompts import PromptTemplate
+
 prompt_template = PromptTemplate.from_template("""
-Given an input question, create a syntactically correct {dialect} query to run to help find the answer. Unless the user specifies in his question a specific number of examples they wish to obtain, always limit your query to at most {top_k} results. You can order the results by a relevant column to return the most interesting examples in the database.
+당신은 데이터베이스 조회 전문가입니다.
 
-Never query for all the columns from a specific table, only ask for a the few relevant columns given the question.
+사용자의 질문에 따라 데이터베이스에서 조회할 수 있는 SQL 쿼리를 생성해주세요.
+다음 지침을 따라주세요:
 
-Pay attention to use only the column names that you can see in the schema description. Be careful to not query for columns that do not exist. Also, pay attention to which column is in which table.
+1. 입력된 질문을 기반으로 {dialect} 문법에 맞는 정확한 SQL 쿼리를 작성하세요.
+2. 사용자가 특정 개수를 요청하지 않은 경우, 결과를 최대 {top_k}개로 제한하세요.
+3. 가장 관련성 높은 열을 기준으로 결과를 정렬하여 가장 의미 있는 예시를 반환하세요.
+4. 특정 테이블의 모든 열을 쿼리하지 말고, 질문과 관련된 몇 개의 열만 쿼리하세요.
+5. 스키마 설명에서 볼 수 있는 열 이름만 사용하세요. 존재하지 않는 열을 쿼리하지 않도록 주의하세요.
+6. 어떤 열이 어떤 테이블에 있는지 주의하세요.
+7. 모호한 열 이름이 있는 경우 테이블 별칭을 사용하여 명확하게 하세요.
+8. 복잡한 조건이 필요한 경우 서브쿼리나 조인을 적절히 사용하세요.
+9. 집계 함수(AVG, COUNT, SUM 등)가 필요한 질문인 경우 GROUP BY를 올바르게 사용하세요.
+10. 날짜 관련 쿼리의 경우 적절한 날짜 함수를 사용하세요.
 
-Note: If you are generating a postgresql query and a table name or column name starts with a capital letter then wrap it with double quotes. For example if the table name is Users then in query it should be "Users". Similarly if a column name is UserID then in query it should be u."UserID" instead of u.UserID
+참고: PostgreSQL 쿼리를 생성하는 경우, 테이블 이름이나 열 이름이 대문자로 시작하면 이중 따옴표로 감싸세요. 예를 들어 테이블 이름이 Users인 경우 쿼리에서는 "Users"로 표기해야 합니다. 마찬가지로 열 이름이 UserID인 경우 u."UserID"로 표기해야 합니다.
 
-Only use the following tables:
+다음 테이블만 사용하세요:
 {table_info}
 
-Question: {input}
+질문: {input}
+""")
+
+# 예시 및 결과 분석 템플릿 추가
+example_analysis_template = PromptTemplate.from_template("""
+이전에 실행된 SQL 쿼리와 그 결과를 분석해보세요:
+
+원래 질문: {original_question}
+생성된 SQL 쿼리: {generated_query}
+쿼리 결과: {query_result}
+
+이 결과가 원래 질문에 적절하게 답변하고 있나요? 개선이 필요하다면 어떤 부분을 수정해야 할까요?
+더 나은 SQL 쿼리를 제안해주세요.
 """)

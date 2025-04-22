@@ -1,0 +1,19 @@
+sources:
+  local-postgres:
+    kind: postgres
+    host: localhost
+    port: 5432
+    database: postgres
+    user: postgres
+    password: rnrgks@#23  # ← URL 디코딩된 값 입력!
+
+tools:
+  get-users:
+    kind: postgres-sql
+    source: local-postgres
+    description: 모든 사용자 조회
+    statement: SELECT * FROM users;
+
+toolsets:
+  default:
+    - get-users
