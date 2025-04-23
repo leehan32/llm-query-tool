@@ -65,10 +65,10 @@ streamlit run index.py
 ## 📊 차트 시각화 기능
 
 - 사용자가 직접 원하는 차트 타입 선택 (`Bar`, `Line`, `Area`)
--  2025-04-23 151327](https://github.com/user-attachments/assets/236a3a80-a186-4e3b-8be7-fee06980f5ea)
+- <img src="https://github.com/user-attachments/assets/ce9fe4d1-5e8b-4c7a-8776-f4117e9abe64" width="500">  
 - LLM이 자동으로 생성한 차트를 타입별로 반복 렌더링
 - 각 차트에 대한 설명 및 분석 자동 출력
-- ![스크린샷![스크린샷 2025-04-23 151316](https://github.com/user-attachments/assets/ce9fe4d1-5e8b-4c7a-8776-f4117e9abe64)
+- ![스크린샷 2025-04-23 151316](https://github.com/user-attachments/assets/ce9fe4d1-5e8b-4c7a-8776-f4117e9abe64)
 - 쿼리, 결과, 분석 로그 확인 가능
 - ![스크린샷 2025-04-23 151349](https://github.com/user-attachments/assets/cfe741db-a69e-46bf-aee1-51191e2215eb)
 
